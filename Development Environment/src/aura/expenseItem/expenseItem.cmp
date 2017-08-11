@@ -1,0 +1,18 @@
+<aura:component >
+
+    <aura:attribute name="expense" type="Expense__c"/>
+
+    <p>Amount:
+        <ui:outputCurrency value="{!v.expense.Amount__c}"/>
+    </p>
+    <p>Client:
+        <ui:outputText value="{!v.expense.Client__c}"/>
+    </p>
+    <p>Date:
+        <ui:outputDate value="{!v.expense.Date__c}"/>
+    </p>
+    <p>Reimbursed?:
+        <ui:outputCheckbox value="{!v.expense.Reimbursed__c}"/>
+    </p>
+
+</aura:component>

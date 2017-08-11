@@ -1,0 +1,24 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false"
+    docType="html-5.0" applyHtmlTag="false" applyBodyTag="false"
+           standardController="Contact" recordSetVar="contacts">
+    
+<html>
+<head>
+    <apex:includeScript value="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <apex:includeScript value="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"/>      
+    <script>
+        angular.module("starter",[]);
+    </script>
+</head>    
+<body ng-app="starter">
+    <apex:repeat value="{!contacts}" var="c" id="theRepeat">
+        <!--apex:outputText value="{!contact.name}" id="theValue"/><br/-->
+        <ul class="list-group">
+            <li class="list-group-item">{!c.name }</li>
+
+        </ul>
+    </apex:repeat>
+</body>    
+    
+    </html>        
+</apex:page>

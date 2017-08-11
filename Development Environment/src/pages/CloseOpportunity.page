@@ -1,0 +1,45 @@
+<apex:page docType="html-5.0" standardController="Opportunity" title="Close Opportunity">
+<style>
+    .mypage {
+        font-family: "ProximaNovaSoft-Regular", Calibri; 
+        font-size: 110%;
+        padding-top: 12px;
+    }
+    .mypage button {
+        -webkit-appearance: button;
+        border-radius: 3px;
+        display: block;
+        padding: 12px;
+        margin: 8px 0;
+        width: 100%;
+        background: #eee;
+        border: solid 1px #ccc;
+      }
+</style>
+    <script src='/canvas/sdk/js/publisher.js'></script>
+
+    <apex:remoteObjects >
+        <apex:remoteObjectModel name="Opportunity" fields="Id,Name"/>
+    </apex:remoteObjects>
+    
+    <div class="mypage">
+        <button onclick="closeOpportunity('Closed Won')">Won</button>
+        <button onclick="closeOpportunity('Closed Lost')">Lost</button>
+    </div>
+    
+    <script>
+        var opportunityId = "{!Opportunity.Id}";
+
+        function closeOpportunity(stageName) {
+            var opportunity = new SObjectModel.Opportunity();
+            opportunity.update([opportunityId], {StageName: stageName}, function(error, records) {
+                if (error) {
+                    alert(error.message);
+                } else {
+                    Sfdc.canvas.publisher.publish({ name: "publisher.close", payload: {refresh:"true"}});
+                }
+            });
+    }
+    </script>
+    
+</apex:page>

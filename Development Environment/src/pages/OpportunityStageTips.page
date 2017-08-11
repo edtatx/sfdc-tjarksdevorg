@@ -1,0 +1,5 @@
+<apex:page standardController="Opportunity">
+    <apex:outputLabel >{!Opportunity.Name}</apex:outputLabel>
+    <apex:outputLabel >{!Opportunity.StageName}</apex:outputLabel>
+    <apex:outputText value="{!IF(Opportunity.StageName=="Prospecting", 'Test 1', IF(Opportunity.StageName=="Proposal/Price Quote", 'Test 2', IF(Opportunity.StageName=="Needs Analysis", 'Test 3', IF(Opportunity.StageName=="Negotiation/Review", 'Test 4','Test 5'))))}"/>
+</apex:page>

@@ -1,0 +1,42 @@
+<aura:component controller="CampingListController" implements="force:appHostable,flexipage:availableForAllPageTypes" >
+
+<aura:attribute name="newItem" type="Camping_Item__c"/>
+    
+<aura:attribute name="items" type="Camping_Item__c[]" description="All Camping Item" />
+
+<aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+    
+<aura:handler name="addItem" action="{!c.handleAdditem}" event="c:addItemEvent"/>
+
+<!-- PAGE HEADER -->
+<div class="slds-page-header" role="banner">
+    <div class="slds-grid">
+        <div class="slds-col">
+            <p class="slds-text-heading--label">Camping Items</p>
+            <h1 class="slds-text-heading--medium">My Camping Items</h1>
+        </div>
+    </div>
+</div>
+<!-- PAGE HEADER -->
+
+<!-- NEW CAMPING FORM -->
+<div class="slds-grid">
+    <div class="slds-col slds-col--padded sls-p-top--large">
+        <c:campingListForm />
+    </div>
+
+    <div class="slds-col slds-col--padded sls-p-top--large">
+        <div area-labelledby="allcamping">
+            <fieldset class="slds-box slds-theme--default slds-container--small">
+                <legend id="allcamping" class="slds-text-heading--small slds-p-vertical--medium">All Camping Items</legend>
+
+                <aura:iteration items="{!v.items}" var="singleItem">
+                    <div class="slds-box slds-theme--default slds-container--small">
+                        <c:campingListItem item="{!singleItem}" />
+                    </div>
+                </aura:iteration>
+            </fieldset>
+        </div>
+    </div>
+</div>
+</aura:component>

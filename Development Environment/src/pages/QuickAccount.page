@@ -1,0 +1,70 @@
+<apex:page docType="html-5.0" title="Create Account">
+    
+    <style>
+    .mypage {
+        font-family: "ProximaNovaSoft-Regular", Calibri; 
+        font-size: 110%;
+        padding-top: 12px;
+        width: 100%;
+    }
+    .mypage input[type=text] {
+        width: 100%;
+        height: 35px;
+        -webkit-appearance: none;
+        padding: 0 8px;
+        margin: 4px 0;
+        line-height: 21px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        outline: none;
+    }
+    .mypage button {
+        -webkit-appearance: button;
+        border-radius: 3px;
+        display: block;
+        padding: 12px;
+        margin: 4px 0;
+        width: 100%;
+        background: #eee;
+        border: solid 1px #ccc;
+    }
+</style>
+    
+    <apex:remoteObjects >
+        <apex:remoteObjectModel name="Account" fields="Id,Name"/>
+    </apex:remoteObjects>
+    
+    <div class="mypage">
+        Account Name:
+        <input type="text" id="accountName"/>
+        <button onclick="createAccount()">Create Account</button>
+    </div>
+    
+    <script src='/canvas/sdk/js/publisher.js'></script>
+    
+    <script>
+// When the panel is displayed, enable the submit button
+Sfdc.canvas.publisher.subscribe({name: "publisher.showPanel", onData:function(e) {
+    Sfdc.canvas.publisher.publish(
+        {name: "publisher.setValidForSubmit", payload: "true"});
+}});
+
+// When the submit button is pressed, create an account, and close the panel
+Sfdc.canvas.publisher.subscribe({ name: "publisher.post", onData: function(e) {
+    // Create the account using the Remote Object
+    var accountName = document.getElementById("accountName").value;
+    var account = new SObjectModel.Account();
+    account.create({Name: accountName}, function(error, records) {
+        if (error) {
+            alert(error.message);
+        } else {
+            //  Close the publisher panel
+            Sfdc.canvas.publisher.publish(
+                { name: "publisher.close", payload:{refresh:"true"}});
+        }
+    });
+}});
+    </script>
+    
+</apex:page>
